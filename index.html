@@ -17,16 +17,16 @@
         <label for="fname">Insira o valor:</label><br />
 
         <input type="text" id="charge_value" name="fname" /><br />
+        <button type="button" id="action" onclick="calculate();">Calcular</button>
 
         <br />
 
         <br />
-
+<!--
         <label for="fname">Tipo de venda:</label><br />
-
-        <input type="radio" name="sell_type" value="debit" checked />
-
-        Débito<br />
+        <input type="radio" name="sell_type" value="all" checked /> Todos<br />
+        
+        <input type="radio" name="sell_type" value="debit"/> Débito<br />
 
         <input type="radio" name="sell_type" value="credit" /> Crédito<br />
 
@@ -36,9 +36,9 @@
 
         <label for="fname">Custos de parcelamento:</label><br />
 
-        <input type="radio" name="fee_tax" value="buyer" checked />
+        <input type="radio" name="fee_tax" value="all" checked /> Todos<br />
 
-        Comprador<br />
+        <input type="radio" name="fee_tax" value="buyer"/> Comprador<br />
 
         <input type="radio" name="fee_tax" value="seller" /> Vendedor<br />
 
@@ -47,52 +47,49 @@
         <br />
 
         <label for="fname">Prazo de liberação:</label><br />
+        <input type="radio" name="money_liberation" value="all" checked /> Todos
+        <br />
 
-        <input type="radio" name="money_liberation" value="now" checked />
+        <input type="radio" name="money_liberation" value="now" /> Na hora
+        <br />
 
-        Na hora<br />
+        <input type="radio" name="money_liberation" value="days_14" /> 14 dias
+        <br />
 
-        <input type="radio" name="money_liberation" value="days_14" />
-
-        14 dias<br />
-
-        <input type="radio" name="money_liberation" value="days_30" />
-
-        30 dias<br />
+        <input type="radio" name="money_liberation" value="days_30" /> 30 dias
+        <br />
 
         <br />
 
 
-
+        <label for="fname">Parcelas:</label><br/>
         <select id="installment">
 
-        <label for="fname">Parcelas:</label
+          <option value="0">Simular todas</option>
 
-        ><br />
+          <option value="1">1 parcela - 0%</option>
 
-        <option value="1">1 parcela - 0%</option>
+          <option value="2">2 parcelas - 4,09%</option>
 
-        <option value="2">2 parcelas - 4,09%</option>
+          <option value="3">3 parcelas - 5,41%</option>
 
-        <option value="3">3 parcelas - 5,41%</option>
+          <option value="4">4 parcelas - 6,70%</option>
 
-        <option value="4">4 parcelas - 6,70%</option>
+          <option value="5">5 parcelas - 7,96%</option>
 
-        <option value="5">5 parcelas - 7,96%</option>
+          <option value="6">6 parcelas - 9,20%</option>
 
-        <option value="6">6 parcelas - 9,20%</option>
+          <option value="7">7 parcelas - 10,41%</option>
 
-        <option value="7">7 parcelas - 10,41%</option>
+          <option value="8">8 parcelas - 11,61%</option>
 
-        <option value="8">8 parcelas - 11,61%</option>
+          <option value="9">9 parcelas - 12,78%</option>
 
-        <option value="9">9 parcelas - 12,78%</option>
+          <option value="10">10 parcelas - 13,92%</option>
 
-        <option value="10">10 parcelas - 13,92%</option>
+          <option value="11">11 parcelas - 15,05%</option>
 
-        <option value="11">11 parcelas - 15,05%</option>
-
-        <option value="12">12 parcelas - 16,15%</option>
+          <option value="12">12 parcelas - 16,15%</option>
 
         </select>
 
@@ -102,7 +99,7 @@
 
         <button type="button" id="action" onclick="calculate();">Calcular</button>
       </form>
-
+-->
     </body>
 
     <script>
@@ -139,46 +136,50 @@
         16.15
       ];
 
+      var parceled_value_covid = [
+        0,
+        4.58,
+        6.22,
+        7.91,
+        9.63,
+        11.41,
+        13.22,
+        15.09,
+        17.00,
+        18.93,
+        20.92,
+        22.93
+      ];
 
 
       function calculate() {
         var charged = document.getElementById("charge_value").value;
 
-        var fee_tax = document.querySelector('input[name="fee_tax"]:checked')
-
-        .value;
+        alert(charged);
 
 
 
-        var money_liberation = document.querySelector(
+        // var fee_tax = document.querySelector('input[name="fee_tax"]:checked').value;
 
-        'input[name="money_liberation"]:checked'
-
-        ).value;
+        // var money_liberation = document.querySelector('input[name="money_liberation"]:checked').value;
 
 
 
-        if (money_liberation == "now") {
+        // if (money_liberation == "now") {
+        //   money_liberation_setted = 0;
+        // } else if (money_liberation == "days_14") {
+        //   var charged = 0;
+        // } else if (money_liberation == "days_30") {
+        //   var charged = 0;
+        // } else if (money_liberation == "all") {
+        //   var charged = 0;
+        // } else {
+        //   alert("Ocorreu um erro");
+        // }
 
-        money_liberation_setted = 0;
+        // if (charged != null && charged != "") {
 
-        } else if (money_liberation == "days_14") {
-
-        var charged = 0;
-
-        } else if (money_liberation == "days_30") {
-
-        var charged = 0;
-
-        } else {
-
-        alert("Ocorreu um erro");
-
-        }
-
-        if (charged != null && charged != "") {
-
-        }
+        // }
 
       }
 
