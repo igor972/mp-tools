@@ -164,7 +164,18 @@
         // cobrar ex: vou cobrar 100 no debito, tenho que receber livre 100 - tarifa(100 - 1.99% == R$ 98,01) 
         var debit_minus_percentage = get_price_minus_percentage(charged, debit);
 
-        
+
+    //Credito a vista
+      // Liberacao na hora
+
+        // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 4.74% == R$ 104.74)
+        var credit_now_plus_percentage = get_price_plus_percentage(charged, credit_now);
+
+        // cobrar ex: vou cobrar 100 no credito a vista, tenho que receber livre 100 - tarifa(100 - 4.74% == R$ 95,26) 
+        var credit_now_minus_percentage = get_price_minus_percentage(charged, credit_now);
+
+        alert(credit_now_minus_percentage);
+
       }
 
       function get_percentage(total, percentage) {
