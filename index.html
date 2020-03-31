@@ -153,35 +153,26 @@
 
 
       function calculate() {
-        var charged = document.getElementById("charge_value").value;
+        var charged = parseInt(document.getElementById("charge_value").value);
 
-        alert(charged);
+      // Debito
 
+        // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 1.99% == R$ 101.99)
+        var debit_total = get_price_plus_percentage(charged, debit);
 
-
-        // var fee_tax = document.querySelector('input[name="fee_tax"]:checked').value;
-
-        // var money_liberation = document.querySelector('input[name="money_liberation"]:checked').value;
-
-
-
-        // if (money_liberation == "now") {
-        //   money_liberation_setted = 0;
-        // } else if (money_liberation == "days_14") {
-        //   var charged = 0;
-        // } else if (money_liberation == "days_30") {
-        //   var charged = 0;
-        // } else if (money_liberation == "all") {
-        //   var charged = 0;
-        // } else {
-        //   alert("Ocorreu um erro");
-        // }
-
-        // if (charged != null && charged != "") {
-
-        // }
+        alert(debit_total);
 
       }
+
+      function get_percentage(total, percentage) {
+        return (total * percentage)/100;
+      }
+
+      function get_price_plus_percentage(charged, percentage) {
+        return (charged + get_percentage(charged, percentage)).toFixed(2);
+      }
+
+
 
       </script>
 
