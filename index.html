@@ -181,6 +181,17 @@
         // cobrar ex: vou cobrar 100 no credito a vista, tenho que receber livre 100 - tarifa(100 - 4.74% == R$ 96,21) 
         var credit_14_days_minus_percentage = get_price_minus_percentage(charged, credit_14_days);
 
+
+      // Liberacao 30 dias
+        // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 3.03% == R$ 103.03)
+        var credit_30_days_plus_percentage = get_price_plus_percentage(charged, credit_30_days);
+
+        // cobrar ex: vou cobrar 100 no credito a vista, tenho que receber livre 100 - tarifa(100 - 3.03% == R$ 96,97) 
+        var credit_30_days_minus_percentage = get_price_minus_percentage(charged, credit_30_days);
+
+
+        alert(credit_30_days_minus_percentage);
+
       }
 
       function get_percentage(total, percentage) {
