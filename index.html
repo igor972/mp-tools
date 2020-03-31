@@ -158,10 +158,13 @@
       // Debito
 
         // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 1.99% == R$ 101.99)
-        var debit_total = get_price_plus_percentage(charged, debit);
+        var debit_plus_percentage = get_price_plus_percentage(charged, debit);
 
-        alert(debit_total);
 
+        // cobrar ex: vou cobrar 100 no debito, tenho que receber livre 100 - tarifa(100 - 1.99% == R$ 98,01) 
+        var debit_minus_percentage = get_price_minus_percentage(charged, debit);
+
+        
       }
 
       function get_percentage(total, percentage) {
@@ -170,6 +173,10 @@
 
       function get_price_plus_percentage(charged, percentage) {
         return (charged + get_percentage(charged, percentage)).toFixed(2);
+      }
+
+      function get_price_minus_percentage(charged, percentage) {
+        return (charged - get_percentage(charged, percentage)).toFixed(2);
       }
 
 
