@@ -155,7 +155,7 @@
       function calculate() {
         var charged = parseInt(document.getElementById("charge_value").value);
 
-      // Debito
+    // Debito
 
         // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 1.99% == R$ 101.99)
         var debit_plus_percentage = get_price_plus_percentage(charged, debit);
@@ -174,7 +174,12 @@
         // cobrar ex: vou cobrar 100 no credito a vista, tenho que receber livre 100 - tarifa(100 - 4.74% == R$ 95,26) 
         var credit_now_minus_percentage = get_price_minus_percentage(charged, credit_now);
 
-        alert(credit_now_minus_percentage);
+      // Liberacao 14 dias
+        // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 3.79% == R$ 103.79)
+        var credit_14_days_plus_percentage = get_price_plus_percentage(charged, credit_14_days);
+
+        // cobrar ex: vou cobrar 100 no credito a vista, tenho que receber livre 100 - tarifa(100 - 4.74% == R$ 96,21) 
+        var credit_14_days_minus_percentage = get_price_minus_percentage(charged, credit_14_days);
 
       }
 
