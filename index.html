@@ -18,88 +18,22 @@
 
         <input type="text" id="charge_value" name="fname" /><br />
         <button type="button" id="action" onclick="calculate();">Calcular</button>
-
-        <br />
-
-        <br />
-<!--
-        <label for="fname">Tipo de venda:</label><br />
-        <input type="radio" name="sell_type" value="all" checked /> Todos<br />
+        <br/><br/><br/>
         
-        <input type="radio" name="sell_type" value="debit"/> Débito<br />
+<!--         <p>Débito (1.99%)</p>
+        <p>R$300,00 -> R$ 5,97</p>
+        <p>Para receber livre R$ 300,00, deverá cobrar <b>R$305,97</b></p>
+        <p>Se cobrar R$300,00, receberá <b>R$294,03</b> livres na conta</p> -->
 
-        <input type="radio" name="sell_type" value="credit" /> Crédito<br />
-
-        <br />
-
-        <br />
-
-        <label for="fname">Custos de parcelamento:</label><br />
-
-        <input type="radio" name="fee_tax" value="all" checked /> Todos<br />
-
-        <input type="radio" name="fee_tax" value="buyer"/> Comprador<br />
-
-        <input type="radio" name="fee_tax" value="seller" /> Vendedor<br />
-
-        <br />
-
-        <br />
-
-        <label for="fname">Prazo de liberação:</label><br />
-        <input type="radio" name="money_liberation" value="all" checked /> Todos
-        <br />
-
-        <input type="radio" name="money_liberation" value="now" /> Na hora
-        <br />
-
-        <input type="radio" name="money_liberation" value="days_14" /> 14 dias
-        <br />
-
-        <input type="radio" name="money_liberation" value="days_30" /> 30 dias
-        <br />
-
-        <br />
-
-
-        <label for="fname">Parcelas:</label><br/>
-        <select id="installment">
-
-          <option value="0">Simular todas</option>
-
-          <option value="1">1 parcela - 0%</option>
-
-          <option value="2">2 parcelas - 4,09%</option>
-
-          <option value="3">3 parcelas - 5,41%</option>
-
-          <option value="4">4 parcelas - 6,70%</option>
-
-          <option value="5">5 parcelas - 7,96%</option>
-
-          <option value="6">6 parcelas - 9,20%</option>
-
-          <option value="7">7 parcelas - 10,41%</option>
-
-          <option value="8">8 parcelas - 11,61%</option>
-
-          <option value="9">9 parcelas - 12,78%</option>
-
-          <option value="10">10 parcelas - 13,92%</option>
-
-          <option value="11">11 parcelas - 15,05%</option>
-
-          <option value="12">12 parcelas - 16,15%</option>
-
-        </select>
-
-        <br /><br /><br />
+        <div id="price_sandbox">
+<!--           <p>Débito (1.99%)</p>
+          <p>R$300,00 -> R$ 5,97</p>
+          <p>Para receber livre R$ 300,00, deverá cobrar <b>R$305,97</b></p>
+          <p>Se cobrar R$300,00, receberá <b>R$294,03</b> livres na conta</p> -->
+        </div>
 
 
 
-        <button type="button" id="action" onclick="calculate();">Calcular</button>
-      </form>
--->
     </body>
 
     <script>
@@ -122,7 +56,6 @@
       var credit_30_parceled_days = 3.6;
 
       var parceled_value = [
-        0,
         4.09,
         5.41,
         6.7,
@@ -137,7 +70,6 @@
       ];
 
       var parceled_value_covid = [
-        0,
         4.58,
         6.22,
         7.91,
@@ -151,6 +83,7 @@
         22.93
       ];
 
+      var price_sandbox = document.getElementById("price_sandbox");
 
       function calculate() {
         var charged = parseInt(document.getElementById("charge_value").value);
@@ -190,7 +123,15 @@
         var credit_30_days_minus_percentage = get_price_minus_percentage(charged, credit_30_days);
 
 
-        alert(credit_30_days_minus_percentage);
+    //Credito parcelado
+      // Liberacao na hora
+
+        // receber livre ex: 100, devera cobrar 100 + tarifa (100 + 5.31% + % das parcelas)
+
+
+        mount_debit(charged);
+        
+
 
       }
 
@@ -207,7 +148,44 @@
       }
 
 
+      function mount_debit(charged) {
+        clear_price_sandbox();
 
-      </script>
+        // monta primeira linha: <p>Débito (1.99%)</p>
+        var line_1_paragraph_charge_type = document.createElement("P");
+        var text_charge_type = document.createTextNode("Débito (" + debit + "%)" );
+        line_1_paragraph_charge_type.appendChild(text_charge_type);
+        price_sandbox.appendChild(line_1_paragraph_charge_type);
+
+        // monta segunda linha: <p>R$300,00 -> R$ 5,97</p>
+        var line_2_charge_and_fee = document.createElement("P");
+        var debit_percentage = get_percentage(charged, debit);
+        var text_charge_and_fee = document.createTextNode("R$" + charged + " -> " + "R$" + debit_percentage);
+        line_2_charge_and_fee.appendChild(text_charge_and_fee);
+        price_sandbox.appendChild(line_2_charge_and_fee);
+
+        // monta terceira linha: <p>Para receber livre R$ 300,00, deverá cobrar <b>R$305,97</b></p>
+        var line_3_receive_without_fee = document.createElement("P");
+        var debit_plus_percentage = get_price_plus_percentage(charged, debit);
+        var text_charge_plus_fee = document.createTextNode("Para receber livre R$"+ charged+ ", deverá cobrar R$"+ debit_plus_percentage);
+        line_3_receive_without_fee.appendChild(text_charge_plus_fee);
+        price_sandbox.appendChild(line_3_receive_without_fee);
+
+
+        // monta quarta linha: <p>Se cobrar R$300,00, receberá <b>R$294,03</b> livres na conta</p>
+        var line_4_receive_with_fee = document.createElement("P");
+        var debit_minus_percentage = get_price_minus_percentage(charged, debit);
+        var text_charge_minus_fee = document.createTextNode("Se cobrar R$"+ charged+ ", receberá R$"+ debit_minus_percentage + " livres na conta");
+        line_4_receive_with_fee.appendChild(text_charge_minus_fee);
+        price_sandbox.appendChild(line_4_receive_with_fee);
+
+
+      }
+
+      function clear_price_sandbox() {
+        price_sandbox.innerHTML = '';
+      }
+
+    </script>
 
 </html>
