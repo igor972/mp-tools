@@ -19,20 +19,13 @@
         <input type="text" id="charge_value" name="fname" /><br />
         <button type="button" id="action" onclick="calculate();">Calcular</button>
         <br/><br/><br/>
-        
-<!--         <p>Débito (1.99%)</p>
-        <p>R$300,00 -> R$ 5,97</p>
-        <p>Para receber livre R$ 300,00, deverá cobrar <b>R$305,97</b></p>
-        <p>Se cobrar R$300,00, receberá <b>R$294,03</b> livres na conta</p> -->
 
-        <div id="price_sandbox">
-<!--           <p>Débito (1.99%)</p>
+        <div id="price_sandbox_debit">
+<!--      <p>Débito (1.99%)</p>
           <p>R$300,00 -> R$ 5,97</p>
           <p>Para receber livre R$ 300,00, deverá cobrar <b>R$305,97</b></p>
           <p>Se cobrar R$300,00, receberá <b>R$294,03</b> livres na conta</p> -->
         </div>
-
-
 
     </body>
 
@@ -41,14 +34,10 @@
       // debito
       var debit = 1.99;
 
-
       // credito a vista
       var credit_now = 4.74;
       var credit_14_days = 3.79;
       var credit_30_days = 3.03;
-      var money_liberation_setted = 0;
-
-
 
       // credito parcelado
       var credit_parceled_now = 5.31;
@@ -149,27 +138,27 @@
 
 
       function mount_debit(charged) {
-        clear_price_sandbox();
+        clear_price_sandboxes();
 
         // monta primeira linha: <p>Débito (1.99%)</p>
         var line_1_paragraph_charge_type = document.createElement("P");
         var text_charge_type = document.createTextNode("Débito (" + debit + "%)" );
         line_1_paragraph_charge_type.appendChild(text_charge_type);
-        price_sandbox.appendChild(line_1_paragraph_charge_type);
+        price_sandbox_debit.appendChild(line_1_paragraph_charge_type);
 
         // monta segunda linha: <p>R$300,00 -> R$ 5,97</p>
         var line_2_charge_and_fee = document.createElement("P");
         var debit_percentage = get_percentage(charged, debit);
         var text_charge_and_fee = document.createTextNode("R$" + charged + " -> " + "R$" + debit_percentage);
         line_2_charge_and_fee.appendChild(text_charge_and_fee);
-        price_sandbox.appendChild(line_2_charge_and_fee);
+        price_sandbox_debit.appendChild(line_2_charge_and_fee);
 
         // monta terceira linha: <p>Para receber livre R$ 300,00, deverá cobrar <b>R$305,97</b></p>
         var line_3_receive_without_fee = document.createElement("P");
         var debit_plus_percentage = get_price_plus_percentage(charged, debit);
         var text_charge_plus_fee = document.createTextNode("Para receber livre R$"+ charged+ ", deverá cobrar R$"+ debit_plus_percentage);
         line_3_receive_without_fee.appendChild(text_charge_plus_fee);
-        price_sandbox.appendChild(line_3_receive_without_fee);
+        price_sandbox_debit.appendChild(line_3_receive_without_fee);
 
 
         // monta quarta linha: <p>Se cobrar R$300,00, receberá <b>R$294,03</b> livres na conta</p>
@@ -177,13 +166,13 @@
         var debit_minus_percentage = get_price_minus_percentage(charged, debit);
         var text_charge_minus_fee = document.createTextNode("Se cobrar R$"+ charged+ ", receberá R$"+ debit_minus_percentage + " livres na conta");
         line_4_receive_with_fee.appendChild(text_charge_minus_fee);
-        price_sandbox.appendChild(line_4_receive_with_fee);
-
+        price_sandbox_debit.appendChild(line_4_receive_with_fee);
 
       }
 
-      function clear_price_sandbox() {
-        price_sandbox.innerHTML = '';
+
+      function clear_price_sandboxes() {
+        price_sandbox_debit.innerHTML = '';
       }
 
     </script>
